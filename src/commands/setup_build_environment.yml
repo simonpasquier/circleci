@@ -1,10 +1,16 @@
 description: >
   Setup the environment for building the container images.
 
+parameters:
+  binfmt_version:
+    description: Version of the linuxkit/binfmt image
+    type: string
+    default: v0.6
+
 steps:
 - setup_environment
 - setup_remote_docker:
     version: 18.06.0-ce
-- run: docker run --privileged linuxkit/binfmt:v0.6
+- run: docker run --privileged linuxkit/binfmt:<< parameters.binfmt_version >>
 - attach_workspace:
     at: .
